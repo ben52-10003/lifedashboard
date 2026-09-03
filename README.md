@@ -38,6 +38,15 @@ A personal dashboard inspired by [*Designing Your Life*](https://designingyour.l
 - Optional notes on geography, learning, impact, and what life looks like
 - Space to record how each alternative energizes you after you present it
 
+### Prototype tab
+- **Review** your three Odyssey Plans and the questions each one raises
+- **Prototype conversations** — Life Design Interviews: get someone’s story, not a job. Draft the ask, use a referral when you can, then capture what you heard and whether you can imagine the life
+- **Designing the job you love** — after the story, a gated second phase for the hidden job market: who raised belonging, the open-ended steps question (never “any openings?”), what happened, and who to talk to next
+- **Prototype experiences** — small, low-cost tries (shadowing, volunteering, a weekend experiment)
+- Tie each prototype to an Odyssey plan or question, then track it from idea to seeking to done
+- Capture what you learned after you talk to someone or try something
+- **If you are stuck** — brainstorm notes, plus a path to mind mapping when you don’t have a team
+
 **Try Stuff** (Good Time Journal):
 1. Complete a log of your daily activities. Note when you are engaged and/or energized and what you are doing. Try to do this daily, or at least every few days.
 2. Continue this daily logging for three weeks.
@@ -60,6 +69,13 @@ A personal dashboard inspired by [*Designing Your Life*](https://designingyour.l
 3. Complete each gauge on the dashboard—ranking each alternative for resources, likability, confidence, and coherence.
 4. Present your plan to another person, a group, or your Life Design Team. Note how each alternative energizes you.
 
+**Try Stuff** (Prototyping):
+1. Review your three Odyssey Plans and the questions you wrote down for each.
+2. Make a list of prototype conversations that might help you answer these questions.
+3. Make a list of prototype experiences that might help you answer these questions.
+4. If you are stuck, and if you have gathered a good group, have a brainstorming session to come up with possibilities. (Don’t have a team? Try mind mapping.)
+5. Build your prototypes by actively seeking out Life Design Interviews and experiences.
+
 All data is saved automatically in your browser (`localStorage`).
 
 ## Getting started
@@ -80,7 +96,7 @@ npm run preview
 
 ## Data privacy
 
-All dashboard, compass, journal, mind map, and odyssey data stays in your browser. Nothing is sent to a server.
+All dashboard, compass, journal, mind map, odyssey, and prototyping data stays in your browser. Nothing is sent to a server.
 
 ## Inspired by
 

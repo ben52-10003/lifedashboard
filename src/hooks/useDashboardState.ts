@@ -4,12 +4,17 @@ import {
   createDefaultJournal,
   createDefaultMindMaps,
   createDefaultOdyssey,
+  createDefaultPrototyping,
   createDefaultState,
   ENERGY_LEVELS,
   GAUGE_LEVELS,
   MIND_MAP_KINDS,
   ODYSSEY_KINDS,
   ODYSSEY_YEARS,
+  PROTOTYPE_KINDS,
+  PROTOTYPE_STATUSES,
+  BELONGING_RAISED_BY,
+  type BelongingRaisedBy,
   type DashboardState,
   type EnergyLevel,
   type GaugeArea,
@@ -30,6 +35,10 @@ import {
   type OdysseyState,
   type OdysseyTimelineEvent,
   type OdysseyYear,
+  type Prototype,
+  type PrototypeKind,
+  type PrototypeStatus,
+  type PrototypingState,
 } from "../types/dashboard";
 import {
   addChildNode,
@@ -37,6 +46,7 @@ import {
   removeNode,
   renameNode,
 } from "../types/mindmap";
+import type { PrototypeDraft, PrototypePatch } from "../types/prototyping";
 
 const STORAGE_KEY = "lifedashboard-state";
 
@@ -227,6 +237,78 @@ function isValidOdyssey(value: unknown): value is OdysseyState {
   return ODYSSEY_KINDS.every((kind) => kinds.includes(kind));
 }
 
+function isValidPrototypeKind(value: unknown): value is PrototypeKind {
+  return (PROTOTYPE_KINDS as unknown[]).includes(value);
+}
+
+function isValidPrototypeStatus(value: unknown): value is PrototypeStatus {
+  return (PROTOTYPE_STATUSES as unknown[]).includes(value);
+}
+
+function isValidQuestionIndex(value: unknown): value is number | null {
+  return value === null || value === 0 || value === 1 || value === 2;
+}
+
+function isValidBelongingRaisedBy(value: unknown): value is BelongingRaisedBy {
+  return (BELONGING_RAISED_BY as unknown[]).includes(value);
+}
+
+function readPrototype(value: unknown): Prototype | null {
+  if (!value || typeof value !== "object") return null;
+  const prototype = value as Prototype;
+  if (
+    typeof prototype.id !== "string" ||
+    !isValidPrototypeKind(prototype.kind) ||
+    typeof prototype.title !== "string" ||
+    typeof prototype.hope !== "string" ||
+    !(
+      prototype.planKind === null ||
+      (ODYSSEY_KINDS as string[]).includes(prototype.planKind)
+    ) ||
+    !isValidQuestionIndex(prototype.questionIndex) ||
+    !isValidPrototypeStatus(prototype.status) ||
+    typeof prototype.learning !== "string"
+  ) {
+    return null;
+  }
+  return {
+    id: prototype.id,
+    kind: prototype.kind,
+    title: prototype.title,
+    hope: prototype.hope,
+    planKind: prototype.planKind,
+    questionIndex: prototype.questionIndex,
+    status: prototype.status,
+    learning: prototype.learning,
+    referral: typeof prototype.referral === "string" ? prototype.referral : "",
+    request: typeof prototype.request === "string" ? prototype.request : "",
+    imagine: typeof prototype.imagine === "string" ? prototype.imagine : "",
+    theyRaisedWork: isValidBelongingRaisedBy(prototype.theyRaisedWork)
+      ? prototype.theyRaisedWork
+      : "unasked",
+    belongingAsk:
+      typeof prototype.belongingAsk === "string" ? prototype.belongingAsk : "",
+    belongingNotes:
+      typeof prototype.belongingNotes === "string" ? prototype.belongingNotes : "",
+    nextPeople: typeof prototype.nextPeople === "string" ? prototype.nextPeople : "",
+  };
+}
+
+function readPrototyping(value: unknown): PrototypingState | null {
+  if (!value || typeof value !== "object") return null;
+  const prototyping = value as PrototypingState;
+  if (!Array.isArray(prototyping.prototypes) || typeof prototyping.brainstormNotes !== "string") {
+    return null;
+  }
+  const prototypes: Prototype[] = [];
+  for (const item of prototyping.prototypes) {
+    const next = readPrototype(item);
+    if (!next) return null;
+    prototypes.push(next);
+  }
+  return { prototypes, brainstormNotes: prototyping.brainstormNotes };
+}
+
 interface LegacyDashboardState {
   health: DashboardState["health"];
   work: DashboardState["work"];
@@ -237,6 +319,7 @@ interface LegacyDashboardState {
   journal?: JournalState;
   mindMaps?: MindMapsState;
   odyssey?: OdysseyState;
+  prototyping?: PrototypingState;
 }
 
 function isValidLegacyState(value: unknown): value is LegacyDashboardState {
@@ -260,6 +343,7 @@ function migrateState(state: LegacyDashboardState): DashboardState {
     journal: isValidJournal(state.journal) ? state.journal : createDefaultJournal(),
     mindMaps: isValidMindMaps(state.mindMaps) ? state.mindMaps : createDefaultMindMaps(),
     odyssey: isValidOdyssey(state.odyssey) ? state.odyssey : createDefaultOdyssey(),
+    prototyping: readPrototyping(state.prototyping) ?? createDefaultPrototyping(),
     updatedAt: state.updatedAt ?? new Date().toISOString(),
   };
 }
@@ -672,6 +756,76 @@ export function useDashboardState() {
     [touch],
   );
 
+  const addPrototype = useCallback(
+    (kind: PrototypeKind, draft: PrototypeDraft) => {
+      const title = draft.title.trim();
+      if (!title) return;
+      const prototype: Prototype = {
+        id: crypto.randomUUID(),
+        kind,
+        title,
+        hope: draft.hope,
+        planKind: draft.planKind,
+        questionIndex: draft.questionIndex,
+        status: "idea",
+        learning: "",
+        referral: draft.referral,
+        request: draft.request,
+        imagine: "",
+        theyRaisedWork: "unasked",
+        belongingAsk: "",
+        belongingNotes: "",
+        nextPeople: "",
+      };
+      touch((prev) => ({
+        ...prev,
+        prototyping: {
+          ...prev.prototyping,
+          prototypes: [...prev.prototyping.prototypes, prototype],
+        },
+      }));
+    },
+    [touch],
+  );
+
+  const updatePrototype = useCallback(
+    (id: string, patch: PrototypePatch) => {
+      touch((prev) => ({
+        ...prev,
+        prototyping: {
+          ...prev.prototyping,
+          prototypes: prev.prototyping.prototypes.map((item) =>
+            item.id === id ? { ...item, ...patch } : item,
+          ),
+        },
+      }));
+    },
+    [touch],
+  );
+
+  const removePrototype = useCallback(
+    (id: string) => {
+      touch((prev) => ({
+        ...prev,
+        prototyping: {
+          ...prev.prototyping,
+          prototypes: prev.prototyping.prototypes.filter((item) => item.id !== id),
+        },
+      }));
+    },
+    [touch],
+  );
+
+  const updateBrainstormNotes = useCallback(
+    (notes: string) => {
+      touch((prev) => ({
+        ...prev,
+        prototyping: { ...prev.prototyping, brainstormNotes: notes },
+      }));
+    },
+    [touch],
+  );
+
   return {
     state,
     updateLevel,
@@ -697,5 +851,9 @@ export function useDashboardState() {
     removeTimelineEvent,
     updateOdysseyGauge,
     setOdysseyStartYear,
+    addPrototype,
+    updatePrototype,
+    removePrototype,
+    updateBrainstormNotes,
   };
 }

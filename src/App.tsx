@@ -4,6 +4,7 @@ import { Dashboard } from "./components/Dashboard";
 import { Journal } from "./components/Journal";
 import { MindMaps } from "./components/MindMaps";
 import { OdysseyPlans } from "./components/OdysseyPlans";
+import { Prototyping } from "./components/Prototyping";
 import { TabNav, type AppTab } from "./components/TabNav";
 import { useDashboardState } from "./hooks/useDashboardState";
 import "./App.css";
@@ -35,6 +36,10 @@ function App() {
     removeTimelineEvent,
     updateOdysseyGauge,
     setOdysseyStartYear,
+    addPrototype,
+    updatePrototype,
+    removePrototype,
+    updateBrainstormNotes,
   } = useDashboardState();
 
   return (
@@ -118,6 +123,24 @@ function App() {
           removeTimelineEvent={removeTimelineEvent}
           updateGauge={updateOdysseyGauge}
           setStartYear={setOdysseyStartYear}
+        />
+      </div>
+
+      <div
+        id="panel-prototype"
+        role="tabpanel"
+        aria-labelledby="tab-prototype"
+        hidden={activeTab !== "prototype"}
+      >
+        <Prototyping
+          odyssey={state.odyssey}
+          prototyping={state.prototyping}
+          addPrototype={addPrototype}
+          updatePrototype={updatePrototype}
+          removePrototype={removePrototype}
+          updateBrainstormNotes={updateBrainstormNotes}
+          onGoToOdyssey={() => setActiveTab("odyssey")}
+          onGoToMindMap={() => setActiveTab("mindmap")}
         />
       </div>
     </main>

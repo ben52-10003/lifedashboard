@@ -1354,3 +1354,248 @@
   margin-top: 0.75rem;
 }
 
+.prototype-review-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+@media (min-width: 800px) {
+  .prototype-review-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.prototype-plan-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 1px solid #e8e2d8;
+  border-radius: 10px;
+  background: #faf8f5;
+}
+
+.prototype-plan-card--done {
+  border-color: #c5d4a8;
+  background: #f4f7ee;
+}
+
+.prototype-plan-kicker {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #6b5e4f;
+}
+
+.prototype-plan-headline {
+  margin: 0;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.prototype-plan-intro {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: #6b5e4f;
+  line-height: 1.45;
+}
+
+.prototype-plan-questions {
+  margin: 0.25rem 0 0;
+  padding-left: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.prototype-question {
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+
+.prototype-question--planned {
+  color: #7c4a12;
+}
+
+.prototype-question--done {
+  color: #3f6212;
+}
+
+.prototype-question-empty {
+  color: #9a8b78;
+  font-style: italic;
+}
+
+.prototype-badge {
+  padding: 0.12rem 0.45rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  background: #f0ebe3;
+  color: #7c4a12;
+  border: 1px solid #e4d4b8;
+}
+
+.prototype-badge--done {
+  background: #e8f0d4;
+  color: #3f6212;
+  border-color: #c5d4a8;
+}
+
+.prototype-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.prototype-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  padding: 1rem;
+  border: 1px solid #e8e2d8;
+  border-radius: 10px;
+  background: #faf8f5;
+}
+
+.prototype-card-meta {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+@media (min-width: 700px) {
+  .prototype-card-meta {
+    grid-template-columns: minmax(0, 1.4fr) auto;
+    align-items: end;
+  }
+}
+
+.prototype-link,
+.prototype-status {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.prototype-link-select {
+  width: 100%;
+  padding: 0.5rem 0.65rem;
+  font-size: 0.875rem;
+  border: 1px solid #d4cbc0;
+  border-radius: 6px;
+  background: #fff;
+  color: #2c2416;
+}
+
+.prototype-link-select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.prototype-notes {
+  min-height: 0;
+  margin-top: 0.35rem;
+}
+
+.prototype-notes--done {
+  background: #f7faef;
+  border-color: #c5d4a8;
+}
+
+.prototype-status .odyssey-dial-levels {
+  justify-content: flex-start;
+}
+
+.prototype-brainstorm-actions {
+  margin-top: 1rem;
+}
+
+.ldi-flip {
+  margin: 0.75rem 0 0;
+  padding: 0.65rem 0.75rem;
+  border-left: 3px solid #b45309;
+  background: #fbf6ee;
+  color: #7c4a12;
+  line-height: 1.5;
+}
+
+.prototype .compass-section > .prompt-questions {
+  margin: 0 0 1.25rem;
+}
+
+.prototype-interview {
+  padding: 0.75rem 0.875rem;
+  border: 1px solid #e8e2d8;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.prototype-interview summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: #2c2416;
+}
+
+.prototype-interview summary:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+.prototype-interview .reflection-label {
+  margin-top: 0.875rem;
+}
+
+.prototype-referral-input {
+  margin-top: 0.35rem;
+  font-weight: 500;
+}
+
+.prototype-request-actions {
+  margin-top: 0.65rem;
+}
+
+.prototype-story-strip {
+  background: #f4f7ee;
+  border: 1px solid #c5d4a8;
+}
+
+.prototype-story-strip strong {
+  color: #3f6212;
+}
+
+.ldi-belief {
+  margin: 0.75rem 0 0;
+  font-size: 0.875rem;
+  color: #9a4a4a;
+  line-height: 1.45;
+}
+
+.ldi-reframe {
+  margin: 0.35rem 0 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #3f6212;
+  line-height: 1.45;
+}
+
+.prototype-belonging .prototype-status {
+  margin-top: 0.875rem;
+}
+

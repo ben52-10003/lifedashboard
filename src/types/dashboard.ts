@@ -113,6 +113,35 @@ export interface OdysseyState {
   plans: OdysseyPlan[];
 }
 
+export type PrototypeKind = "conversation" | "experience";
+
+export type PrototypeStatus = "idea" | "seeking" | "done";
+
+export type BelongingRaisedBy = "unasked" | "they-asked" | "you-asked";
+
+export interface Prototype {
+  id: string;
+  kind: PrototypeKind;
+  title: string;
+  hope: string;
+  planKind: OdysseyKind | null;
+  questionIndex: number | null;
+  status: PrototypeStatus;
+  learning: string;
+  referral: string;
+  request: string;
+  imagine: string;
+  theyRaisedWork: BelongingRaisedBy;
+  belongingAsk: string;
+  belongingNotes: string;
+  nextPeople: string;
+}
+
+export interface PrototypingState {
+  prototypes: Prototype[];
+  brainstormNotes: string;
+}
+
 export interface DashboardState {
   health: GaugeData;
   work: GaugeData;
@@ -122,6 +151,7 @@ export interface DashboardState {
   journal: JournalState;
   mindMaps: MindMapsState;
   odyssey: OdysseyState;
+  prototyping: PrototypingState;
   updatedAt: string;
 }
 
@@ -267,6 +297,23 @@ export function createDefaultOdyssey(): OdysseyState {
   };
 }
 
+export const PROTOTYPE_KINDS: PrototypeKind[] = ["conversation", "experience"];
+
+export const PROTOTYPE_STATUSES: PrototypeStatus[] = ["idea", "seeking", "done"];
+
+export const BELONGING_RAISED_BY: BelongingRaisedBy[] = [
+  "unasked",
+  "they-asked",
+  "you-asked",
+];
+
+export function createDefaultPrototyping(): PrototypingState {
+  return {
+    prototypes: [],
+    brainstormNotes: "",
+  };
+}
+
 export function createDefaultState(): DashboardState {
   return {
     health: createDefaultGauge(),
@@ -277,6 +324,7 @@ export function createDefaultState(): DashboardState {
     journal: createDefaultJournal(),
     mindMaps: createDefaultMindMaps(),
     odyssey: createDefaultOdyssey(),
+    prototyping: createDefaultPrototyping(),
     updatedAt: new Date().toISOString(),
   };
 }
