@@ -4,7 +4,8 @@ export type AppTab =
   | "journal"
   | "mindmap"
   | "odyssey"
-  | "prototype";
+  | "prototype"
+  | "vision";
 
 interface TabNavProps {
   activeTab: AppTab;
@@ -18,6 +19,7 @@ const TABS: { id: AppTab; label: string }[] = [
   { id: "mindmap", label: "Mind Map" },
   { id: "odyssey", label: "Odyssey" },
   { id: "prototype", label: "Prototype" },
+  { id: "vision", label: "Vision" },
 ];
 
 export function TabNav({ activeTab, onTabChange }: TabNavProps) {

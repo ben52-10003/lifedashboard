@@ -1599,3 +1599,29 @@
   margin-top: 0.875rem;
 }
 
+.vision-figure {
+  margin: 0;
+}
+
+.vision-image {
+  display: block;
+  width: 100%;
+  max-width: 720px;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid #e0d8cc;
+}
+
+.vision-image--logo {
+  max-width: 320px;
+  background: #000;
+}
+
+.vision-caption {
+  margin: 0.65rem 0 0;
+  font-size: 0.9375rem;
+  font-style: italic;
+  color: #4a4034;
+}
+
+

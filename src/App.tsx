@@ -5,6 +5,7 @@ import { Journal } from "./components/Journal";
 import { MindMaps } from "./components/MindMaps";
 import { OdysseyPlans } from "./components/OdysseyPlans";
 import { Prototyping } from "./components/Prototyping";
+import { Vision } from "./components/Vision";
 import { TabNav, type AppTab } from "./components/TabNav";
 import { useDashboardState } from "./hooks/useDashboardState";
 import "./App.css";
@@ -142,6 +143,15 @@ function App() {
           onGoToOdyssey={() => setActiveTab("odyssey")}
           onGoToMindMap={() => setActiveTab("mindmap")}
         />
+      </div>
+
+      <div
+        id="panel-vision"
+        role="tabpanel"
+        aria-labelledby="tab-vision"
+        hidden={activeTab !== "vision"}
+      >
+        <Vision />
       </div>
     </main>
   );

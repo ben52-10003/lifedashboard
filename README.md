@@ -47,6 +47,11 @@ A personal dashboard inspired by [*Designing Your Life*](https://designingyour.l
 - Capture what you learned after you talk to someone or try something
 - **If you are stuck** — brainstorm notes, plus a path to mind mapping when you don’t have a team
 
+### Vision tab
+- Four sections matching the Life Dashboard gauges: **Health**, **Work**, **Play**, and **Love**
+- Collect images and scenes that show what a full life looks like in each area
+- Health includes a vision image captioned **Labor Day 2028.**
+
 **Try Stuff** (Good Time Journal):
 1. Complete a log of your daily activities. Note when you are engaged and/or energized and what you are doing. Try to do this daily, or at least every few days.
 2. Continue this daily logging for three weeks.
