@@ -1599,6 +1599,12 @@
   margin-top: 0.875rem;
 }
 
+.vision-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
 .vision-figure {
   margin: 0;
 }

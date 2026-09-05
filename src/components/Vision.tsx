@@ -13,20 +13,35 @@ const SECTION_HINTS: Record<GaugeArea, string> = {
   love: "Where is love flowing—given and received?",
 };
 
-const VISION_IMAGES: Partial<
-  Record<GaugeArea, { src: string; alt: string; caption: string; className?: string }>
-> = {
-  health: {
-    src: "/vision/labor-day-2028.jpg",
-    alt: "Family jumping into a pool together, hands linked, on a sunny Labor Day.",
-    caption: "Labor Day 2028.",
-  },
-  work: {
-    src: "/vision/harris-tcb.png",
-    alt: "Harris Taking Care of Business logo with a lightning bolt.",
-    caption: "Taking Care of Business.",
-    className: "vision-image--logo",
-  },
+interface VisionImage {
+  src: string;
+  alt: string;
+  caption: string;
+  className?: string;
+}
+
+const VISION_IMAGES: Partial<Record<GaugeArea, VisionImage[]>> = {
+  health: [
+    {
+      src: "/vision/labor-day-2028.jpg",
+      alt: "Family jumping into a pool together, hands linked, on a sunny Labor Day.",
+      caption: "Labor Day 2028.",
+    },
+  ],
+  work: [
+    {
+      src: "/vision/harris-tcb.png",
+      alt: "Harris Taking Care of Business logo with a lightning bolt.",
+      caption: "Taking Care of Business.",
+      className: "vision-image--logo",
+    },
+    {
+      src: "/vision/always-be-learning.jpg",
+      alt: "Open book with an arrow rising toward a star, labeled Always Be Learning.",
+      caption: "Always Be Learning.",
+      className: "vision-image--logo",
+    },
+  ],
 };
 
 export function Vision() {
@@ -40,7 +55,7 @@ export function Vision() {
 
       <div className="compass-sections">
         {GAUGE_CONFIGS.map((config) => {
-          const image = VISION_IMAGES[config.area];
+          const images = VISION_IMAGES[config.area] ?? [];
           return (
             <section
               key={config.area}
@@ -52,15 +67,19 @@ export function Vision() {
                 <p className="compass-intro">{SECTION_HINTS[config.area]}</p>
               </header>
 
-              {image ? (
-                <figure className="vision-figure">
-                  <img
-                    className={`vision-image${image.className ? ` ${image.className}` : ""}`}
-                    src={image.src}
-                    alt={image.alt}
-                  />
-                  <figcaption className="vision-caption">{image.caption}</figcaption>
-                </figure>
+              {images.length > 0 ? (
+                <div className="vision-gallery">
+                  {images.map((image) => (
+                    <figure key={image.src} className="vision-figure">
+                      <img
+                        className={`vision-image${image.className ? ` ${image.className}` : ""}`}
+                        src={image.src}
+                        alt={image.alt}
+                      />
+                      <figcaption className="vision-caption">{image.caption}</figcaption>
+                    </figure>
+                  ))}
+                </div>
               ) : (
                 <p className="journal-empty">
                   No vision images yet. Add scenes that show what {config.title.toLowerCase()}{" "}
